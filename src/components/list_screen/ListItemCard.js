@@ -11,6 +11,8 @@ export class ListItemCard extends Component {
             let tkey = itemToMove.key;
             itemToMove.key = listToChange[itemToMove.key].key;
             listToChange[tkey].key = tkey;
+
+            this.props.loadList(this.props.todoList);
         }
 
         e.stopPropagation();
@@ -25,12 +27,18 @@ export class ListItemCard extends Component {
             let tkey = itemToMove.key;
             itemToMove.key = listToChange[itemToMove.key].key;
             listToChange[tkey].key = tkey;
+
+            this.props.loadList(this.props.todoList);
         }  
 
         e.stopPropagation();
     }
-    delete(itemToDelete, e){
+    deleteItem(itemToDelete, e){
         this.props.todoList.items.splice(itemToDelete.key,1);
+        for(let i = itemToDelete.key;i < this.props.todoList.items.length;i++){
+            this.props.todoList.items[i].key--;
+        }
+        this.props.loadList(this.props.todoList);
         e.stopPropagation();
     }
     render() {
@@ -48,12 +56,13 @@ export class ListItemCard extends Component {
                 </div>
                     {this.props.listItem.completed ? <div className='list_item_card_completed'>Completed</div>: <div className='list_item_card_not_completed'>Pending</div>}
                 <div className='list_item_card_toolbar'>
+                    {this.props.listItem.key == 0 ? <div className="list_item_card_button disabled" onClick={e => this.moveUp(this.props.listItem, e)}>⇧</div>
+                                                  :  <div className="list_item_card_button" onClick={e => this.moveUp(this.props.listItem, e)}>⇧</div>}
+                    {this.props.listItem.key == this.props.todoList.items.length-1 ? <div className="list_item_card_button disabled" onClick={e => this.moveDown(this.props.listItem, e)}>⇩</div>
+                                                  :  <div className="list_item_card_button" onClick={e => this.moveDown(this.props.listItem, e)}>⇩</div>}
+                         
                     <div className='list_item_card_button'
-                         onClick={e => this.moveUp(this.props.listItem, e)}>⇧</div>
-                    <div className='list_item_card_button'
-                         onClick={e => this.moveDown(this.props.listItem, e)}>⇩</div>
-                    <div className='list_item_card_button'
-                         onClick={e => this.delete(this.props.listItem, e)}>✕</div>
+                         onClick={e => this.deleteItem(this.props.listItem, e)}>✕</div>
                 </div>
             </div>
         )

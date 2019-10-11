@@ -29,7 +29,7 @@ export class ListScreen extends Component {
         return (
             <div id="todo_list">
                 <ListHeading goHome={this.props.goHome} />
-                <ListTrash />
+                <ListTrash todoList={this.props.todoList} todoLists={this.props.todoLists} goHome={this.props.goHome}/>
                 <div id="list_details_container">
                     <div id="list_details_name_container" className="text_toolbar">
                         <span id="list_name_prompt">Name:</span>
@@ -48,7 +48,7 @@ export class ListScreen extends Component {
                             onChange={e => this.setListOwner(e)}/>
                     </div>
                 </div>
-                <ListItemsTable todoList={this.props.todoList} loadItem={this.props.loadItem}/>
+                <ListItemsTable todoList={this.props.todoList} loadItem={this.props.loadItem} loadList={this.props.loadList}/>
             </div>
         )
     }

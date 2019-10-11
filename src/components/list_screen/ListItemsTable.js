@@ -26,7 +26,8 @@ export class ListItemsTable extends Component {
                             key={todoItem.key}
                             listItem={todoItem} 
                             loadItem={this.props.loadItem}
-                            todoList={this.props.todoList}/>
+                            todoList={this.props.todoList}
+                            loadList={this.props.loadList}/>
                     ))
                 }
                 <div class="list_item_add_card" onClick={() => this.props.loadItem(this.addItem())}>+</div>
