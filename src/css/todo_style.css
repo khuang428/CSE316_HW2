@@ -240,12 +240,20 @@ font-size: 16pt;
 –––––––––––––––––––––––––––––––––––––––––––––––––– */
 [data-animation] .modal_dialog {
   opacity: 0;
-  transition: all 0.5s var(--bounceEasing);
+  transition: all 1s var(--bounceEasing);
 }
 
 [data-animation].is_visible .modal_dialog {
   opacity: 1;
   transition-delay: 0.2s;
+}
+
+[data-animation="slideIn"] .modal_dialog{
+  animation: slideIn 1s;
+}
+
+[data-animation="slideOut"] .modal_dialog{
+  animation: slideOut 1s;
 }
 
 [data-animation="slideInOutDown"] .modal_dialog {
@@ -284,6 +292,22 @@ font-size: 16pt;
 [data-animation="zoomInOut"].is_visible .modal_dialog,
 [data-animation="rotateInOutDown"].is_visible .modal_dialog {
   transform: none;
+}
+
+@keyframes slideIn{
+  from{
+    transform: translateX(-100%);
+  }to{
+    transform: translateX(0);
+  }
+}
+
+@keyframes slideOut{
+  from{
+    transform: translateX(0);
+  }to{
+    transform: translateX(-100%);
+  }
 }
 
 @keyframes mixInAnimations {

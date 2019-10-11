@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 
 const Modal = ({isVisible, hideModal, deleteList}) => {
-    const visClassName = isVisible ? "modal is_visible": "modal";
+    const visClassName = isVisible ? "modal is_visible": "modal is_not_visible";
     return (
-        <div className = {visClassName}>
-            <div className ="modal_dialog">
+        <div className = {visClassName} data-animation={isVisible ? "slideIn" : "slideOut"}>
+            <div className ="modal_dialog" >
                 <header className ="dialog_header">
                     Delete list?
                 </header>
