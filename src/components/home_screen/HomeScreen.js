@@ -5,16 +5,29 @@ import TodoListLinks from './TodoListLinks'
 import PropTypes from 'prop-types';
 
 export class HomeScreen extends Component {
+    addList(){
+        let newList = {
+            key: this.props.todoLists.length,
+            name: "Unknown",
+            owner: "",
+            items: []
+        }
+
+        this.props.todoLists.push(newList);
+        return newList;
+    }
     render() {
         return (
             <div id="todo_home">
                 <div id="home_your_lists_container">
                     <HomeHeader />
                     <TodoListLinks loadList={this.props.loadList} todoLists={this.props.todoLists} />
+                    <br></br>
                 </div>
                 <Banner />
                 <div id="home_new_list_container">
-                    <button id="home_new_list_button">
+                    <button id="home_new_list_button"
+                            onClick={() => this.props.loadList(this.addList())}>
                         Create a New To Do List
                     </button>
                 </div>

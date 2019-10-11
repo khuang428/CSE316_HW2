@@ -22,7 +22,10 @@ body {
   grid-row: 1 / span 2;
 }
 #home_your_lists_heading {}
-#home_your_lists_list {}
+#home_your_lists_list {
+  display:grid;
+  row-gap: 20px;
+}
 #home_banner_container {
   grid-column: 2 / span 2;
   grid-row: 1 / span 1;
@@ -40,16 +43,20 @@ body {
 }
 
 /* HOME SCREEN CLASSES */
-.home_list_link {}
+.home_list_link {
+  cursor: pointer;
+}
 
 /* LIST SCREEN CONTROLS */
-#list_heading {}
+#list_heading {
+  display: inline;
+}
 #list_trash {
   position: absolute;
-  left: 85%;
-  width: 15%;
+  left: 95%;
+  width: 5%;
   text-align: right;
-  top: 5%;
+  top: 0px;
 }
 #list_details_container {
   padding-left: 2%;
@@ -122,7 +129,8 @@ body {
 /* ITEM SCREEN CONTROLS */
 #item_heading {}
 #item_form_container {
-  display: grid;
+    display: grid;
+    row-gap: 20px;
 }
 #item_description_prompt {}
 #item_description_textfield {}
@@ -131,14 +139,19 @@ body {
 #item_due_date_prompt {}
 #item_due_date_picker {}
 #item_completed_prompt {}
-#item_completed_checkbox {}
-#item_form_submit_button {}
-#item_form_cancel_button {}
+#item_completed_checkbox {
+    width: 0;
+    margin: 0;
+}
+#item_form_submit_button {
+}
+#item_form_cancel_button {
+}
 
 /* ITEM SCREEN CLASSES */
 .item_prompt {
-  grid-column: 1 / 4;
+    grid-column: 1 / 2;
 }
 .item_input {
-  grid-column: 2 / 4;
+    grid-column: 2 / 7;
 }
