@@ -1,27 +1,5 @@
 import React, { Component } from 'react'
-
-const Modal = ({isVisible, hideModal, deleteList}) => {
-    const visClassName = isVisible ? "modal is_visible": "modal is_not_visible";
-    return (
-        <div className = {visClassName} data-animation={isVisible ? "slideIn" : "slideOut"}>
-            <div className ="modal_dialog" >
-                <header className ="dialog_header">
-                    Delete list?
-                </header>
-                <section className ="dialog_content">
-                    <p><strong>Are you sure you want to delete this list?</strong></p>
-                </section>
-                    <button id="dialog_yes_button"
-                            onClick ={() => deleteList()}>Yes</button>
-                    <button id="dialog_no_button" 
-                            onClick={() => hideModal()}>No</button>
-                <footer className ="dialog_footer">
-                    The list will not be retreivable.
-                </footer>
-            </div>
-        </div>
-    )
-}
+import ListTrashModal from './ListTrashModal'
 
 export class ListTrash extends Component {
     state = {
@@ -45,7 +23,7 @@ export class ListTrash extends Component {
         return (
             <>
             <div id="list_trash" onClick={()=> this.showModal()}>&#128465;</div>
-            <Modal isVisible = {this.state.isVisible} hideModal = {this.hideModal.bind(this)} deleteList = {this.deleteList.bind(this)}/>
+            <ListTrashModal isVisible = {this.state.isVisible} hideModal = {this.hideModal.bind(this)} deleteList = {this.deleteList.bind(this)}/>
             </>
         )
     }

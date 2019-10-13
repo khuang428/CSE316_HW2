@@ -72,6 +72,7 @@ export class ListItemsTable extends Component {
 
     addItem(){
         let newItem = {
+            //key will be added in the item screen
             "description": "",
             "assigned_to": "",
             "due_date": "",
