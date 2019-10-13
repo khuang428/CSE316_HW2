@@ -25,7 +25,10 @@ class App extends Component {
 
   loadList = (todoListToLoad) => {
     this.setState({currentScreen: AppScreen.LIST_SCREEN});
-    this.setState({currentList: todoListToLoad});
+    this.setState({currentList: todoListToLoad},
+                   function(){let i = this.state.todoLists.indexOf(todoListToLoad);
+                              this.state.todoLists.splice(i,1);
+                              this.state.todoLists.unshift(todoListToLoad)});
     console.log("currentList: " + this.state.currentList);
     console.log("currentScreen: " + this.state.currentScreen);
   }

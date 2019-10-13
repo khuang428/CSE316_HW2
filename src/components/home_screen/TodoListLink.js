@@ -1,8 +1,6 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
 
-//to do put recently accessed list on top
-
 export class TodoListLink extends Component {
     render() {        
         return (
