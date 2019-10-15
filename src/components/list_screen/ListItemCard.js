@@ -1,4 +1,5 @@
 import React, { Component } from 'react'
+import itemDeleteTransaction from '../../lib/jstps/itemDeleteTransaction';
 
 export class ListItemCard extends Component {
     moveUp(itemToMove,e){

@@ -1,6 +1,5 @@
 import React, { Component } from 'react'
 import ListItemCard from './ListItemCard'
-import { ifStatement } from '@babel/types';
 
 export class ListItemsTable extends Component {
     state={
@@ -84,16 +83,16 @@ export class ListItemsTable extends Component {
     render() {
         return (
             <div id="list_items_container">
-                <div class = "list_item_header_card">
-                    <div class="list_item_task_header" 
+                <div className = "list_item_header_card">
+                    <div className ="list_item_task_header" 
                          onClick = {this.state.currentSort == "descriptionIncreasing" ? 
                                     () => this.sortItems("descriptionDecreasing") : 
                                     () => this.sortItems("descriptionIncreasing")}>Task</div>
-                    <div class="list_item_due_date_header"
+                    <div className = "list_item_due_date_header"
                          onClick = {this.state.currentSort == "dueDateIncreasing" ?
                                     () => this.sortItems("dueDateDecreasing") :
                                     () => this.sortItems("dueDateIncreasing")}>Due Date</div>
-                    <div class="list_item_status_header"
+                    <div className = "list_item_status_header"
                          onClick = {this.state.currentSort == "completedIncreasing" ?
                                     () => this.sortItems("completedDecreasing") :
                                     () => this.sortItems("completedIncreasing")}>Status</div>
@@ -105,10 +104,11 @@ export class ListItemsTable extends Component {
                             listItem={todoItem} 
                             loadItem={this.props.loadItem}
                             todoList={this.props.todoList}
-                            loadList={this.props.loadList}/>
+                            loadList={this.props.loadList}
+                            tps={this.props.tps}/>
                     ))
                 }
-                <div class="list_item_add_card" onClick={() => this.props.loadItem(this.addItem())}>+</div>
+                <div className ="list_item_add_card" onClick={() => this.props.loadItem(this.addItem())}>+</div>
             </div>
         )
     }

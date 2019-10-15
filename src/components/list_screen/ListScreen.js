@@ -2,8 +2,14 @@ import React, { Component } from 'react'
 import ListHeading from './ListHeading'
 import ListItemsTable from './ListItemsTable'
 import ListTrash from './ListTrash'
+import listNameTransaction from '../../lib/jstps/listNameTransaction';
+import listOwnerTransaction from '../../lib/jstps/listOwnerTransaction';
 
 export class ListScreen extends Component {
+    state={
+        name: this.props.todoList.name,
+        owner: this.props.todoList.owner
+    }
     getListName() {
         if (this.props.todoList) {
             let name = this.props.todoList.name;
@@ -11,6 +17,7 @@ export class ListScreen extends Component {
         }
         else
             return "";
+        
     }
     getListOwner() {
         if (this.props.todoList) {
@@ -19,10 +26,34 @@ export class ListScreen extends Component {
         }
     }
     setListName(e){
-        this.props.todoList.name = e.target.value;
+        this.props.tps.addTransaction(new listNameTransaction(this.props.todoList, e.target.value));
+        this.setState({name: this.props.todoList.name});
     }
     setListOwner(e){
-        this.props.todoList.owner = e.target.value;
+        this.props.tps.addTransaction(new listOwnerTransaction(this.props.todoList, e.target.value));
+        this.setState({owner: this.props.todoList.owner});
+    }
+
+    keyPress(e){
+        if(e.keyCode == 90 && e.ctrlKey){ //undo
+            this.props.tps.undoTransaction();
+            this.setState({name: this.props.todoList.name,
+                           owner: this.props.todoList.owner});
+            e.preventDefault();
+        }else if(e.keyCode == 89 && e.ctrlKey){ //redo
+            this.props.tps.doTransaction();
+            this.setState({name: this.props.todoList.name,
+                           owner: this.props.todoList.owner});
+            e.preventDefault();
+        }
+    }
+
+    componentDidMount(){
+        document.addEventListener("keydown", this.keyPress.bind(this), false);
+    }
+
+    componentWillUnmount(){
+        document.removeEventListener("keydown", this.keyPress.bind(this), false);
     }
     
     render() {
@@ -34,7 +65,7 @@ export class ListScreen extends Component {
                     <div id="list_details_name_container" className="text_toolbar">
                         <span id="list_name_prompt">Name:</span>
                         <input 
-                            defaultValue={this.getListName()} 
+                            value={this.state.name} 
                             type="text" 
                             id="list_name_textfield"
                             onChange={e => this.setListName(e)} />
@@ -42,13 +73,13 @@ export class ListScreen extends Component {
                     <div id="list_details_owner_container" className="text_toolbar">
                         <span id="list_owner_prompt">Owner:</span>
                         <input 
-                            defaultValue={this.getListOwner()}
+                            value={this.state.owner}
                             type="text" 
                             id="list_owner_textfield" 
                             onChange={e => this.setListOwner(e)}/>
                     </div>
                 </div>
-                <ListItemsTable todoList={this.props.todoList} loadItem={this.props.loadItem} loadList={this.props.loadList}/>
+                <ListItemsTable todoList={this.props.todoList} loadItem={this.props.loadItem} loadList={this.props.loadList} tps={this.props.tps}/>
             </div>
         )
     }

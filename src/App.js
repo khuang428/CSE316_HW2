@@ -3,6 +3,7 @@ import testTodoListData from './TestTodoListData.json'
 import HomeScreen from './components/home_screen/HomeScreen'
 import ItemScreen from './components/item_screen/ItemScreen'
 import ListScreen from './components/list_screen/ListScreen'
+import jstps from './lib/jstps/jstps.js'
 
 const AppScreen = {
   HOME_SCREEN: "HOME_SCREEN",
@@ -15,12 +16,14 @@ class App extends Component {
     currentScreen: AppScreen.HOME_SCREEN,
     todoLists: testTodoListData.todoLists,
     currentList: null,
-    currentItem: null
+    currentItem: null,
+    tps: new jstps()
   }
 
   goHome = () => {
     this.setState({currentScreen: AppScreen.HOME_SCREEN});
     this.setState({currentList: null});
+    this.state.tps.clearAllTransactions();
   }
 
   loadList = (todoListToLoad) => {
@@ -42,21 +45,23 @@ class App extends Component {
     switch(this.state.currentScreen) {
       case AppScreen.HOME_SCREEN:
         return <HomeScreen 
-        loadList={this.loadList.bind(this)} 
-        todoLists={this.state.todoLists} />;
+          loadList={this.loadList.bind(this)} 
+          todoLists={this.state.todoLists} 
+          tps = {this.state.tps} />;
       case AppScreen.LIST_SCREEN:            
         return <ListScreen
           goHome={this.goHome.bind(this)}
           todoList={this.state.currentList} 
           loadItem={this.loadItem.bind(this)}
           loadList={this.loadList.bind(this)}
-          todoLists={this.state.todoLists}/>;
+          todoLists={this.state.todoLists}
+          tps = {this.state.tps} />;
       case AppScreen.ITEM_SCREEN:
         return <ItemScreen 
           loadList={this.loadList.bind(this)}
           todoList={this.state.currentList}
           todoItem={this.state.currentItem}
-          />;
+          tps = {this.state.tps} />;
       default:
         return <div>ERROR</div>;
     }
