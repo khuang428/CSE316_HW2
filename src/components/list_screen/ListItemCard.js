@@ -1,27 +1,16 @@
 import React, { Component } from 'react'
 import itemDeleteTransaction from '../../lib/jstps/itemDeleteTransaction';
+import itemMoveTransaction from '../../lib/jstps/itemMoveTransaction';
 
 export class ListItemCard extends Component {
     moveUp(itemToMove,e){
-            let listToChange = this.props.todoList.items;
-            if(listToChange[0] !== itemToMove){
-                let i = listToChange.indexOf(itemToMove);
-                listToChange.splice(i,1);
-                listToChange.splice(i-1,0,itemToMove);
-                this.props.loadList(this.props.todoList);
-            }
-
+        this.props.tps.addTransaction(new itemMoveTransaction(this.props.todoList, itemToMove, 1));
+        this.props.loadList(this.props.todoList);
         e.stopPropagation();
     }
     moveDown(itemToMove,e){
-        let listToChange = this.props.todoList.items;
-        if(listToChange[listToChange.length -1] !== itemToMove){
-            let i = listToChange.indexOf(itemToMove);
-            listToChange.splice(i,1);
-            listToChange.splice(i+1,0,itemToMove);
-            this.props.loadList(this.props.todoList);
-        }  
-
+        this.props.tps.addTransaction(new itemMoveTransaction(this.props.todoList, itemToMove, -1));
+        this.props.loadList(this.props.todoList);
         e.stopPropagation();
     }
     deleteItem(itemToDelete, e){
