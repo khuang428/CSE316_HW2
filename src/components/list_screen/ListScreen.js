@@ -47,7 +47,7 @@ export class ListScreen extends Component {
         }else if(e.keyCode == 89 && e.ctrlKey){ //redo
             this.props.tps.doTransaction();
             this.setState({name: this.props.todoList.name,
-                           owner: this.props.todoList.owner});
+                           owner: this.props.todoList.owner});              
             e.preventDefault();
         }
         

@@ -1,5 +1,7 @@
 import React, { Component } from 'react'
 import PropTypes from 'prop-types';
+import itemEditTransaction from '../../lib/jstps/itemEditTransaction';
+import itemAddTransaction from '../../lib/jstps/itemAddTransaction';
 
 export class ItemScreen extends Component {
     state = {
@@ -21,15 +23,25 @@ export class ItemScreen extends Component {
     }
 
     handleSubmit(){
-        this.props.todoItem.description = this.state.description;
-        this.props.todoItem.assigned_to = this.state.assigned_to;
-        this.props.todoItem.due_date = this.state.due_date;
-        this.props.todoItem.completed = this.state.completed;
         if(this.props.todoItem.key == null){
             this.props.todoItem.key = this.assignKey();
-            this.props.todoList.items.push(this.props.todoItem);
+            this.props.todoItem.description = this.state.description;
+            this.props.todoItem.assigned_to = this.state.assigned_to;
+            this.props.todoItem.due_date = this.state.due_date;
+            this.props.todoItem.completed = this.state.completed;
+            this.props.tps.addTransaction(new itemAddTransaction(this.props.todoList,this.props.todoItem));
+
+            this.props.loadList(this.props.todoList);
+        }else{
+            this.props.tps.addTransaction(new itemEditTransaction(this.props.todoItem,
+                this.props.todoItem.key,
+                this.state.description,
+                this.state.assigned_to,
+                this.state.due_date,
+                this.state.completed));
+
+            this.props.loadList(this.props.todoList);
         }
-        this.props.loadList(this.props.todoList);
     }
     render() {
         return (
@@ -50,7 +62,7 @@ export class ItemScreen extends Component {
                             onChange={e => this.setState({due_date: e.target.value})}/>
                     <div id="item_completed_prompt" className="item_prompt">Completed:</div>
                     <input id="item_completed_checkbox" className="item_input" type="checkbox" 
-                            defaultValue={this.props.todoItem.completed}
+                            defaultChecked={this.props.todoItem.completed}
                             onChange={e => this.setState({completed: e.target.checked})}/>
                 </div>
                 <br></br>
