@@ -25,15 +25,11 @@ export class ListItemCard extends Component {
         e.stopPropagation();
     }
     deleteItem(itemToDelete, e){
-        this.props.todoList.items = this.props.todoList.items.filter(function(val){ return val !== itemToDelete});
-        for(let i = 0;i < this.props.todoList.items.length;i++){
-            if(this.props.todoList.items[i].key > itemToDelete.key){
-                this.props.todoList.items[i].key--;
-            }
-        }
+        this.props.tps.addTransaction(new itemDeleteTransaction(this.props.todoList, itemToDelete));
         this.props.loadList(this.props.todoList);
         e.stopPropagation();
     }
+
     render() {
         return (
             <div className='list_item_card'

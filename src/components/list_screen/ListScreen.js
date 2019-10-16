@@ -6,6 +6,10 @@ import listNameTransaction from '../../lib/jstps/listNameTransaction';
 import listOwnerTransaction from '../../lib/jstps/listOwnerTransaction';
 
 export class ListScreen extends Component {
+    constructor(props){
+        super(props);
+        this.undoredo = this.undoredo.bind(this);
+    }
     state={
         name: this.props.todoList.name,
         owner: this.props.todoList.owner
@@ -34,7 +38,7 @@ export class ListScreen extends Component {
         this.setState({owner: this.props.todoList.owner});
     }
 
-    keyPress(e){
+    undoredo(e){
         if(e.keyCode == 90 && e.ctrlKey){ //undo
             this.props.tps.undoTransaction();
             this.setState({name: this.props.todoList.name,
@@ -46,14 +50,15 @@ export class ListScreen extends Component {
                            owner: this.props.todoList.owner});
             e.preventDefault();
         }
+        
     }
 
     componentDidMount(){
-        document.addEventListener("keydown", this.keyPress.bind(this), false);
+        document.addEventListener("keydown", this.undoredo, false);
     }
 
     componentWillUnmount(){
-        document.removeEventListener("keydown", this.keyPress.bind(this), false);
+        document.removeEventListener("keydown", this.undoredo, false);
     }
     
     render() {

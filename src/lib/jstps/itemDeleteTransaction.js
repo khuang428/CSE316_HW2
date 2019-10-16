@@ -9,11 +9,14 @@ export class itemDeleteTransaction extends jstpsTransaction{
     }
 
     doTransaction(){
-        
+        let item = this.itemToDelete;
+        this.newList = this.oldList.filter(function(val){ return val !== item});
+        this.listToChange.items = this.newList;
     }
 
     undoTransaction(){
         this.listToChange.items = this.oldList;
+        
     }
 
     toString(){

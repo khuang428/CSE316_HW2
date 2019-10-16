@@ -8,13 +8,25 @@ export class ItemScreen extends Component {
         due_date: this.props.todoItem.due_date,
         completed: this.props.todoItem.completed
     }
+
+    assignKey(){
+        let found =  null;
+        for(let i = 0;i < this.props.todoList.items.length;i++){
+            found = this.props.todoList.items.find(function(item){return item.key == i});
+            if(found == undefined){
+                return i;
+            }
+        }
+        return this.props.todoList.items.length;
+    }
+
     handleSubmit(){
         this.props.todoItem.description = this.state.description;
         this.props.todoItem.assigned_to = this.state.assigned_to;
         this.props.todoItem.due_date = this.state.due_date;
         this.props.todoItem.completed = this.state.completed;
         if(this.props.todoItem.key == null){
-            this.props.todoItem.key = this.props.todoList.items.length;
+            this.props.todoItem.key = this.assignKey();
             this.props.todoList.items.push(this.props.todoItem);
         }
         this.props.loadList(this.props.todoList);

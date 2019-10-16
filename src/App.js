@@ -57,7 +57,8 @@ class App extends Component {
           todoLists={this.state.todoLists}
           tps = {this.state.tps} />;
       case AppScreen.ITEM_SCREEN:
-        return <ItemScreen 
+        return <ItemScreen
+          currentScreen={this.state.currentScreen} 
           loadList={this.loadList.bind(this)}
           todoList={this.state.currentList}
           todoItem={this.state.currentItem}
