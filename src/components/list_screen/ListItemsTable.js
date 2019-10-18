@@ -1,7 +1,12 @@
 import React, { Component } from 'react'
 import ListItemCard from './ListItemCard'
+import listSortTransaction from '../../lib/jstps/listSortTransaction';
 
 export class ListItemsTable extends Component {
+    constructor(){
+        super();
+        this.compare = this.compare.bind(this);
+    }
     state={
         currentSort: null
     }
@@ -65,7 +70,7 @@ export class ListItemsTable extends Component {
 
     sortItems(sortCriteria){
         this.setState({currentSort: sortCriteria}, 
-                       function(){this.props.todoList.items.sort(this.compare.bind(this));
+                       function(){this.props.tps.addTransaction(new listSortTransaction(this.props.todoList,this.compare));
                                   this.props.loadList(this.props.todoList)});
     }
 

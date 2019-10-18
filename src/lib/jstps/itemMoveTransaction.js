@@ -17,7 +17,6 @@ export class itemMoveTransaction extends jstpsTransaction{
     undoTransaction(){
         this.listToChange[this.index-this.direction] = this.listToChange[this.index];
         this.listToChange[this.index] = this.itemToMove;
-        
     }
 
     toString(){
